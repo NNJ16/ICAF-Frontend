@@ -41,7 +41,7 @@ const RegisterForm = () => {
         <div>
             <Header/>
             <div className="register">
-                <Form onSubmit={handleSubmit(handleRegistration)}>
+                <Form className="reg-log-from" onSubmit={handleSubmit(handleRegistration)}>
                     <h1 className="reg-title">Register</h1>
                     <hr/>
                     <FormGroup className="input">

@@ -1,0 +1,64 @@
+.reg-log-from {
+    position: relative;
+    width: 22%;
+    margin: 40px auto 100px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 7px;
+}
+.workshop-from {
+    position: relative;
+    width: 45%;
+    background: #fff;
+    padding: 20px;
+}
+
+.workshop-from {
+    position: relative;
+    width: 45%;
+    background: #fff;
+    padding: 20px;
+}
+.title{
+    margin-top: auto;
+    text-align: center;
+    padding-top: 6rem;
+    padding-bottom: 3rem;
+    color: #FFF;
+    background: url("http://theartmad.com/wp-content/uploads/Grey-Wallpaper-2.jpg");
+}
+.workshop-submit{
+    margin: 4rem;
+    background-color: white;
+    padding: 1rem;
+    color: gray;
+}
+
+.conference-card{
+    margin: 4rem;
+    background-color: white;
+    padding: 1rem;
+    color: gray;
+    border-radius: 7px;
+}
+
+.attendee-price{
+    padding: 1rem;
+    background-color: gray;
+    text-align: center;
+    color: white;
+    border-radius: 7px;
+}
+
+.btnReg{
+    margin-top: 5px;
+    width: 100%;
+    margin-bottom: 20px;
+    border-radius: 7px;
+}
+.btnLog{
+    margin-top: 20px;
+    margin-bottom: 5px;
+    width: 100%;
+    border-radius: 7px;
+}
