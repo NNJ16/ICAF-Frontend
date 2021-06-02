@@ -34,6 +34,9 @@
     color: gray;
 }
 
+.workshop-proposal{
+    margin: 4rem;
+}
 .conference-card{
     margin: 4rem;
     background-color: white;
@@ -61,4 +64,21 @@
     margin-bottom: 5px;
     width: 100%;
     border-radius: 7px;
+}
+.wr-table{
+    width: 80%;
+    margin: 10px auto 100px;
+}
+.wr-table-header{
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    color: gray;
+}
+.wr-dashboard-header{
+    text-align: left;
+}
+.wr-submit{
+    text-align: right;
 }

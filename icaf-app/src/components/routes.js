@@ -5,11 +5,15 @@ import LoginForm from '../views/LoginForm';
 import SubmitWorkshop from "../views/workshop/SubmitWorkShop";
 import SubmitResearch from "../views/researches/SubmitResearch";
 import Registration from "../views/registration/Registration";
+import Researches from "../views/researches/Researches";
+import MyWorkshops from "../views/workshop/MyWorkshops";
+
 const hist = createBrowserHistory();
 
 const Routes = () => (
     <Router history={hist}>
         <Route exact path="/" component={LoginForm} />
+        <Route exact path="/workshop/profile/:id" component={MyWorkshops} />
         <Route exact path="/workshop/submit" component={SubmitWorkshop} />
         <Route exact path="/research/submit" component={SubmitResearch} />
         <Route exact path="/conference/registration" component={Registration} />

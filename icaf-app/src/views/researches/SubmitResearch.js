@@ -2,6 +2,8 @@ import React,{useState} from "react";
 import Title from "../../components/Header/Title";
 import {Button, Form, FormGroup, FormText, Input, Label} from "reactstrap";
 import {useForm} from "react-hook-form";
+import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
 
 const SubmitResearch =()=>{
     const {register, handleSubmit} = useForm();
@@ -21,7 +23,8 @@ const SubmitResearch =()=>{
 
     return(
         <div>
-            <Title/>
+            <Header/>
+            <Title title = "CALL FOR PAPERS"/>
             <div className="workshop-proposal">
                 <h3>CALL FOR PAPERS</h3>
                 <p>The 2021 International Conference on Advancements in Computing (ICAC 2021) will be held in Sri Lanka from 9th to 11th December 2021.
@@ -41,6 +44,7 @@ const SubmitResearch =()=>{
                     <Button color="secondary" size="lg">Submit</Button>
                 </Form>
             </div>
+            <Footer/>
         </div>
     );
 }

@@ -15,8 +15,13 @@ const LoginForm = () => {
 
     };
 
+    const goToRegister = ()=>{
+        history.push("/workshop/submit");
+    }
+
     return (
         <div className="register">
+            <Header/>
             <Title/>
             <Form className="reg-log-from" onSubmit={handleSubmit(handleRegistration)}>
                 <h1 className="reg-title">Login</h1>
@@ -30,8 +35,9 @@ const LoginForm = () => {
                     <Input size="sm" type="password" name="password" {...register("password")} />
                 </FormGroup>
                 <Button className="btnLog" color="primary">Login</Button>
-                <Button size="sm" className="btnReg" color="secondary">Register</Button>
+                <Button onClick={goToRegister} size="sm" className="btnReg" color="secondary">Register</Button>
             </Form>
+            <Footer/>
         </div>
     );
 };

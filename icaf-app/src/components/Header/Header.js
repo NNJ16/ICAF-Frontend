@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
+import {useHistory} from "react-router-dom";
+
 import {
     Collapse,
     Navbar,
@@ -11,36 +13,45 @@ import {
     DropdownToggle,
     DropdownMenu,
     DropdownItem,
-    NavbarText
+    UncontrolledButtonDropdown
 } from 'reactstrap';
 
 const Header = (props) => {
     const [isOpen, setIsOpen] = useState(false);
-
+    const history = useHistory();
     const toggle = () => setIsOpen(!isOpen);
 
+    const callForWorkshop = () => {
+        history.push("/workshop/submit");
+    }
+
+    const callForPaper = () => {
+        history.push("/research/submit");
+    }
+
+    const registration = () => {
+        history.push("/conference/registration")
+    }
     return (
         <div>
-            <Navbar dark="true" color="dark" fixed="top" light expand="md">
+            <Navbar dark={true} color="dark" fixed="top" light expand="md">
                 <NavbarBrand href="/">ICAF</NavbarBrand>
-                <NavbarToggler onClick={toggle} />
+                <NavbarToggler onClick={toggle}/>
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="mr-auto" navbar>
                         <NavItem>
-                            <NavLink href="/components/">KEYNOTES</NavLink>
+                            <NavLink>KEYNOTES</NavLink>
                         </NavItem>
-                        <NavItem>
-                            <UncontrolledDropdown nav inNavbar>
-                                <DropdownToggle nav caret>
-                                    RESEARCHES
-                                </DropdownToggle>
-                                <DropdownMenu right>
-                                    <DropdownItem>
-                                        Call for paper
-                                    </DropdownItem>
-                                </DropdownMenu>
-                            </UncontrolledDropdown>
-                        </NavItem>
+                        <UncontrolledDropdown nav inNavbar>
+                            <DropdownToggle nav caret>
+                                RESEARCHES
+                            </DropdownToggle>
+                            <DropdownMenu right>
+                                <DropdownItem onClick={callForPaper}>
+                                    Call for paper
+                                </DropdownItem>
+                            </DropdownMenu>
+                        </UncontrolledDropdown>
                         <UncontrolledDropdown nav inNavbar>
                             <DropdownToggle nav caret>
                                 WORKSHOPS
@@ -49,16 +60,27 @@ const Header = (props) => {
                                 <DropdownItem>
                                     Workshops
                                 </DropdownItem>
-                                <DropdownItem>
+                                <DropdownItem onClick={callForWorkshop}>
                                     Call for Workshops
                                 </DropdownItem>
                             </DropdownMenu>
                         </UncontrolledDropdown>
                         <NavItem>
-                            <NavLink href="/components/">REGISTRATIONS</NavLink>
+                            <NavLink href="/conference/registration">REGISTRATIONS</NavLink>
                         </NavItem>
                     </Nav>
-                    <NavbarText>Simple Text</NavbarText>
+                    <UncontrolledButtonDropdown>
+                        <DropdownToggle caret>
+                            My Profile
+                        </DropdownToggle>
+                        <DropdownMenu>
+                            <DropdownItem header>Header</DropdownItem>
+                            <DropdownItem disabled>Action</DropdownItem>
+                            <DropdownItem>Another Action</DropdownItem>
+                            <DropdownItem divider/>
+                            <DropdownItem>Another Action</DropdownItem>
+                        </DropdownMenu>
+                    </UncontrolledButtonDropdown>
                 </Collapse>
             </Navbar>
         </div>

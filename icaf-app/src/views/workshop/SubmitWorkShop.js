@@ -2,24 +2,57 @@ import React,{useState} from "react";
 import Title from "../../components/Header/Title";
 import {Button, Form, FormGroup, FormText, Input, Label} from "reactstrap";
 import {useForm} from "react-hook-form";
+import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
+import API from "../../components/api";
 
 const SubmitWorkshop =()=>{
     const {register, handleSubmit} = useForm();
-    let fileData = null;
 
     const handleData= (event)=>{
         const {name, value} = event.target;
-        if(name == "proposal"){
-            fileData = event.target.files;
-            console.log(fileData);
+        if(name === "proposal"){
+            let fileData = event.target.files[0];
+            const formData = new FormData();
+            formData.append(
+                "file",
+                fileData,
+                fileData.name
+            )
+            API.post("/workshop/upload",formData)
+                .then((res)=>{
+                    console.log(res);
+                })
+                .catch((err)=>{
+                    console.log(err)
+                });
         }
     }
 
     const handleRegistration = (data) => {
+        const workshop = {
+            topic : data.topic,
+            description : data.description,
+            approvalStatus : "pending",
+            submitter : {
+                userId : "0123456789",
+                name: "Kamal",
+                email : "Kamal@mail.com"
+            }
+        }
+        API.post("/workshop/create",workshop)
+            .then((res)=>{
+                console.log(res);
+            })
+            .catch((err)=>{
+                console.log(err)
+            });
     };
+
     return(
         <div>
-            <Title/>
+            <Header/>
+            <Title title = "CALL FOR WORKSHOPS"/>
             <div className="workshop-proposal">
                 <h3>CALL FOR WORKSHOP PROPOSALS</h3>
                 <p>In addition to exciting technical symposia, tutorials, IEEE ICAC 2021 will feature a series of 3 hours of workshop.
@@ -52,6 +85,7 @@ const SubmitWorkshop =()=>{
                     <Button color="secondary" size="lg">Submit</Button>
                 </Form>
             </div>
+            <Footer/>
         </div>
     );
 }

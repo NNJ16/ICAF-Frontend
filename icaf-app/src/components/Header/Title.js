@@ -3,7 +3,7 @@ import React from "react";
 const Title = (props) =>{
     return(
         <div className="title">
-            <h1>WORKSHOPS</h1>
+            <h1>{props.title}</h1>
         </div>
     );
 }
