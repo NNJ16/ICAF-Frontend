@@ -74,10 +74,17 @@ const EditModal = (props) => {
                 fileData,
                 fileData.name
             )
-            axios.all([updateFile(formData),setTimeout(()=>{updateData(workshop)},2000)])
+            axios.all([updateFile(formData),setTimeout(()=>{
+                updateData(workshop)
+                window.location.reload();
+            },2000)])
                 .then(axios.spread((data1, data2) => {
+                    if(data1 && data2){
 
+                    }
                 }));
+        }else{
+            alert("Select a file to submit");
         }
     };
 
@@ -99,7 +106,7 @@ const EditModal = (props) => {
                         </FormGroup>
                         <FormGroup>
                             <Label>Proposal :</Label>
-                            <Input type="file" name="proposal" onChange={handleFile} enctype="multipart/form-data"/>
+                            <Input type="file" name="proposal" onChange={handleFile} encType="multipart/form-data"/>
                             <FormText color="muted">
                                 This is some placeholder block-level help text for the above input.
                                 It's a bit lighter and easily wraps to a new line.

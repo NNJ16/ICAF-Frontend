@@ -26,6 +26,9 @@ const Header = (props) => {
         history.push("/workshop/submit");
     }
 
+    const goToWorkshop = () => {
+        history.push("/workshops");
+    }
     const callForPaper = () => {
         history.push("/research/submit");
     }
@@ -57,7 +60,7 @@ const Header = (props) => {
                             WORKSHOPS
                         </DropdownToggle>
                         <DropdownMenu right>
-                            <DropdownItem>
+                            <DropdownItem onClick={goToWorkshop}>
                                 Workshops
                             </DropdownItem>
                             <DropdownItem onClick={callForWorkshop}>

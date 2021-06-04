@@ -25,7 +25,7 @@ const SubmitWorkshop = () => {
         API.post("/workshop/create", workshop)
             .then();
     }
-    const handleRegistration = (data) => {
+    const handleWorkshopData = (data) => {
         const workshop = {
             topic: data.topic,
             description: data.description,
@@ -69,7 +69,7 @@ const SubmitWorkshop = () => {
             <div className="workshop-submit">
                 <h2>WORKSHOP PROPOSAL SUBMISSION</h2>
                 <p>Proposal submissions should be submitted as a single PDF file online at the following link:</p>
-                <Form className="workshop-from" onSubmit={handleSubmit(handleRegistration)}>
+                <Form className="workshop-from" onSubmit={handleSubmit(handleWorkshopData)}>
                     <FormGroup>
                         <Label>Topic :</Label>
                         <Input type="text" name="topic" {...register("topic")} />
