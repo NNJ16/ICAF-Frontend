@@ -1,9 +1,9 @@
 import React,{useState} from "react";
-import Title from "../../components/Header/Title";
+import Title from "../../components/header/Title";
 import {Button, Form, FormGroup, FormText, Input, Label} from "reactstrap";
 import {useForm} from "react-hook-form";
-import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
+import Header from "../../components/header/Header";
+import Footer from "../../components/footer/Footer";
 
 const SubmitResearch =()=>{
     const {register, handleSubmit} = useForm();

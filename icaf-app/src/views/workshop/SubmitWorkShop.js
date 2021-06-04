@@ -1,64 +1,68 @@
-import React,{useState} from "react";
-import Title from "../../components/Header/Title";
+import React, {useState} from "react";
+import Title from "../../components/header/Title";
 import {Button, Form, FormGroup, FormText, Input, Label} from "reactstrap";
 import {useForm} from "react-hook-form";
-import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
+import Header from "../../components/header/Header";
+import Footer from "../../components/footer/Footer";
 import API from "../../components/api";
+import axios from "axios";
 
-const SubmitWorkshop =()=>{
+const SubmitWorkshop = () => {
     const {register, handleSubmit} = useForm();
-
-    const handleData= (event)=>{
+    const token = JSON.parse(sessionStorage.getItem("token"));
+    let fileData = null;
+    const handleData = (event) => {
         const {name, value} = event.target;
-        if(name === "proposal"){
-            let fileData = event.target.files[0];
+        if (name === "proposal") {
+            fileData = event.target.files[0];
+        }
+    }
+    const updateFile = (formData) =>{
+        API.post("/workshop/upload", formData)
+            .then();
+    }
+    const createData = (workshop) =>{
+        API.post("/workshop/create", workshop)
+            .then();
+    }
+    const handleRegistration = (data) => {
+        const workshop = {
+            topic: data.topic,
+            description: data.description,
+            approvalStatus: "pending",
+            submitter: {
+                userId: token.id,
+                name: token.name,
+                email: token.email
+            }
+        }
+        if(fileData){
             const formData = new FormData();
             formData.append(
                 "file",
                 fileData,
                 fileData.name
             )
-            API.post("/workshop/upload",formData)
-                .then((res)=>{
-                    console.log(res);
-                })
-                .catch((err)=>{
-                    console.log(err)
-                });
-        }
-    }
+            axios.all([updateFile(formData),setTimeout(()=>{createData(workshop)},2000)])
+                .then(axios.spread((data1, data2) => {
 
-    const handleRegistration = (data) => {
-        const workshop = {
-            topic : data.topic,
-            description : data.description,
-            approvalStatus : "pending",
-            submitter : {
-                userId : "0123456789",
-                name: "Kamal",
-                email : "Kamal@mail.com"
-            }
+                }));
         }
-        API.post("/workshop/create",workshop)
-            .then((res)=>{
-                console.log(res);
-            })
-            .catch((err)=>{
-                console.log(err)
-            });
     };
 
-    return(
+    return (
         <div>
             <Header/>
-            <Title title = "CALL FOR WORKSHOPS"/>
+            <Title title="CALL FOR WORKSHOPS"/>
             <div className="workshop-proposal">
                 <h3>CALL FOR WORKSHOP PROPOSALS</h3>
-                <p>In addition to exciting technical symposia, tutorials, IEEE ICAC 2021 will feature a series of 3 hours of workshop.
+                <p>In addition to exciting technical symposia, tutorials, IEEE ICAC 2021 will feature a series of 3
+                    hours of workshop.
                     We invite the submission of workshop proposals.
-                    The aim of the conference workshops is to emphasize emerging topics not specifically covered in the conference.
-                    Workshops should highlight current topics related to technical and business issues in communications and networking,
+                    The aim of the conference workshops is to emphasize emerging topics not specifically covered in the
+                    conference.
+                    Workshops should highlight current topics related to technical and business issues in communications
+                    and networking,
                     and should include a mix of regular papers, invited presentations,
                     and panels that encourage the participation of attendees in active discussion.</p>
             </div>
@@ -76,7 +80,7 @@ const SubmitWorkshop =()=>{
                     </FormGroup>
                     <FormGroup>
                         <Label>Proposal :</Label>
-                        <Input type="file" name="proposal" enctype="multipart/form-data"  onChange={handleData}/>
+                        <Input type="file" name="proposal" enctype="multipart/form-data" onChange={handleData}/>
                         <FormText color="muted">
                             This is some placeholder block-level help text for the above input.
                             It's a bit lighter and easily wraps to a new line.

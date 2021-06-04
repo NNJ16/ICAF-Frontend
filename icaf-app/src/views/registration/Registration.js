@@ -1,8 +1,8 @@
 import React,{useState} from "react";
-import Title from "../../components/Header/Title";
-import ConferenceCard from "../../components/Card/ConferenceCard";
-import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
+import Title from "../../components/header/Title";
+import ConferenceCard from "../../components/common/ConferenceCard";
+import Header from "../../components/header/Header";
+import Footer from "../../components/footer/Footer";
 const Registration =()=>{
     return(
         <div>

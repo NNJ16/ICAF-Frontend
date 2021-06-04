@@ -1,6 +1,6 @@
 .reg-log-from {
     position: relative;
-    width: 22%;
+    width: 25%;
     margin: 40px auto 100px auto;
     background: #fff;
     padding: 20px;
@@ -26,6 +26,9 @@
     padding-bottom: 3rem;
     color: #FFF;
     background: url("http://theartmad.com/wp-content/uploads/Grey-Wallpaper-2.jpg");
+}
+.table-row-nodata{
+    padding: 1rem;
 }
 .workshop-submit{
     margin: 4rem;
@@ -66,7 +69,7 @@
     border-radius: 7px;
 }
 .wr-table{
-    width: 80%;
+    width: 95%;
     margin: 10px auto 100px;
 }
 .wr-table-header{
@@ -76,9 +79,27 @@
     text-align: center;
     color: gray;
 }
+.wr-table-sub-header{
+    margin-top:1rem;
+    background: white;
+    padding: 5px;
+    text-align: center;
+    color: gray;
+}
+.wr-dashboard-sub-header{
+
+}
 .wr-dashboard-header{
     text-align: left;
 }
 .wr-submit{
     text-align: right;
+}
+.workshop-modal{
+    padding: 1rem;
+}
+.workshop-from-modal {
+    position: relative;
+    background: #fff;
+    padding: 20px;
 }

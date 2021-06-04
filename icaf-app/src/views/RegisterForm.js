@@ -2,15 +2,17 @@ import React from "react";
 import {useForm} from "react-hook-form";
 import {useHistory} from "react-router-dom";
 import {Form, FormGroup, Label, Input, Button} from "reactstrap";
-import Header from "../components/Header/Header";
-import Footer from "../components/Footer/Footer";
-import API from "../components/api"
+import Header from "../components/header/Header";
+import Footer from "../components/footer/Footer";
+import API from "../components/api";
+import { useAlert } from "react-alert";
+import Title from "../components/header/Title";
 const bcrypt = require('bcryptjs')
 
 const RegisterForm = () => {
     const history = useHistory();
     const {register, handleSubmit} = useForm();
-
+    const alert = useAlert();
     const handleRegistration = (data) => {
         //encrypted user password for better security
         const user ={
@@ -21,9 +23,14 @@ const RegisterForm = () => {
             type:"user"
         }
         //send post request to add a new user to the db
-        API.post('/addUser', user)
+        API.post('/user/create', user)
             .then(function (response) {
-                console.log(response);
+                console.log(response.data);
+                if(response.data.message){
+                    alert.info(response.data.message);
+                }else{
+                    history.push("/login");
+                }
             })
             .catch(function (error) {
                 console.log(error);
@@ -33,36 +40,32 @@ const RegisterForm = () => {
     const loginForm =()=>{
         history.push("/login");
     };
-    //go to seller form
-    const sellerForm =()=>{
-        history.push("/sellregister");
-    };
     return (
         <div>
             <Header/>
+            <Title title="BECOME A MEMBER"/>
             <div className="register">
                 <Form className="reg-log-from" onSubmit={handleSubmit(handleRegistration)}>
-                    <h1 className="reg-title">Register</h1>
+                    <h2 className="reg-title">Register</h2>
                     <hr/>
                     <FormGroup className="input">
                         <Label>Name :</Label>
-                        <Input size="sm" name="name" {...register("name")} />
+                        <Input size="sm" name="name" {...register("name")} required/>
                     </FormGroup>
                     <FormGroup className="input">
                         <Label>Email :</Label>
-                        <Input size="sm" type="email" name="email" {...register("email")} />
+                        <Input size="sm" type="email" name="email" {...register("email")} required/>
                     </FormGroup>
                     <FormGroup className="input">
                         <Label>Phone :</Label>
-                        <Input size="sm" type="text" name="phone" {...register("phone")} />
+                        <Input size="sm" type="text" name="phone" {...register("phone")} required/>
                     </FormGroup>
                     <FormGroup >
                         <Label>Password :</Label>
-                        <Input size="sm" type="password" name="password" {...register("password")} />
+                        <Input size="sm" type="password" name="password" {...register("password")} required/>
                     </FormGroup>
                     <Button className="btnLog" color="primary">Register</Button>
                     <Button size="sm" onClick={()=>loginForm()} className="btnReg" color="secondary">Login</Button>
-                    <Button size="sm" onClick={()=>sellerForm()}outline color="primary" className="btnReg">Become a seller</Button>
                 </Form>
             </div>
             <Footer/>
