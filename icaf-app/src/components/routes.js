@@ -9,11 +9,14 @@ import LoginForm from "../views/LoginForm";
 import Researches from "../views/researches/Researches";
 import MyWorkshops from "../views/workshop/MyWorkshops";
 import Workshops from "../views/workshop/Workshops";
+import { NavBar } from './header/NavBar';
+import { Home } from '../views/Home';
 
 const hist = createBrowserHistory();
 
 const Routes = () => (
     <Router history={hist}>
+        <Route exact path="/home" component={Home}/>
         <Route exact path="/" component={LoginForm}/>
         <Route exact path="/login" component={LoginForm}/>
         <Route exact path="/register" component={RegisterForm}/>

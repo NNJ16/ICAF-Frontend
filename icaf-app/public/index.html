@@ -10,5 +10,41 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    
+
+    <!-- Function used to shrink nav bar removing paddings and adding black background -->
+    <script>
+        $(window).scroll(function() {
+            if ($(document).scrollTop() > 50) {
+                $('.nav').addClass('affix');
+                console.log("OK");
+            } else {
+                $('.nav').removeClass('affix');
+            }
+        });
+        $(window).scroll(function() {
+            if ($(document).scrollTop() > 50) {
+                $('.dd').addClass('affix2');
+                console.log("OK");
+            } else {
+                $('.dd').removeClass('affix2');
+            }
+        });
+    </script>
+      
+      
+    <script>
+  $('.navTrigger').click(function () {
+          $(this).toggleClass('active');
+          console.log("Clicked menu");
+          $("#mainListDiv").toggleClass("show_list");
+          $("#mainListDiv").fadeIn();
+      
+      });
+    </script>
+
+   
   </body>
 </html>
