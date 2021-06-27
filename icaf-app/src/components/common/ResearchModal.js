@@ -3,17 +3,14 @@ import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
 import {Button, Form, FormGroup, FormText, Input, Label} from "reactstrap";
 import {useForm} from "react-hook-form";
-import API from "../../components/api";
+import API from "../api";
 import axios from "axios";
 
-const EditModal = (props) => {
+const EditResearchModal = (props) => {
     const [open, setOpen] = useState(false);
-    const [data,setData] = useState({
-            topic: "",
-            description:""
-    });
+    const [title,setTitle] = useState("");
     useEffect(() => {
-        setData(props.row)
+        setTitle(props.row.title)
     }, []);
 
     const onOpenModal = () => setOpen(true);
@@ -21,25 +18,10 @@ const EditModal = (props) => {
     const {register, handleSubmit} = useForm();
     const token =JSON.parse(sessionStorage.getItem("token"));
     let fileData = null;
+
     const handleData= (event)=>{
         const {name, value} = event.target;
-        setData((preValue) => {
-            if (name === "topic") {
-                return (
-                    {
-                        topic: value,
-                        description: preValue.description
-                    }
-                );
-            }else if(name === "description"){
-                return (
-                    {
-                        topic: preValue.topic,
-                        description: value
-                    }
-                );
-            }
-        });
+        setTitle(value);
     }
     const handleFile = (event) => {
         const {name, value} = event.target;
@@ -48,20 +30,20 @@ const EditModal = (props) => {
         }
     }
     const updateFile = (formData) =>{
-        API.post("/workshop/upload", formData)
+        API.post("/research/upload", formData)
             .then();
     }
-    const updateData = (workshop) =>{
-        API.put("/workshop/update", workshop)
+    const updateData = (research) =>{
+        API.put("/research/update", research)
             .then();
     }
-    const submitWorkshop = () => {
-        const workshop = {
+    const submitResearch = () => {
+        const research = {
             _id: props.row._id,
-            topic: data.topic,
-            description: data.description,
+            title: title,
+            paymentStatus: "pending",
             approvalStatus: "pending",
-            submitter: {
+            researcher: {
                 userId: token.id,
                 name: token.name,
                 email: token.email
@@ -75,38 +57,30 @@ const EditModal = (props) => {
                 fileData.name
             )
             axios.all([updateFile(formData),setTimeout(()=>{
-                updateData(workshop)
+                updateData(research)
                 window.location.reload();
             },2000)])
                 .then(axios.spread((data1, data2) => {
-                    if(data1 && data2){
 
-                    }
                 }));
-        }else{
-            alert("Select a file to submit");
         }
     };
 
     return (
         <div>
-            <Button onClick={onOpenModal}>Resubmit</Button>
+            <Button onClick={onOpenModal}>Edit</Button>
             <Modal open={open} onClose={onCloseModal} center>
                 <div className="workshop-modal">
-                    <h3>WORKSHOP PROPOSAL SUBMISSION</h3>
+                    <h3>RESEARCH PAPER SUBMISSION</h3>
                     <p>Proposal submissions should be submitted as a single PDF file online at the following link:</p>
-                    <Form className="workshop-from-modal" onSubmit={handleSubmit(submitWorkshop)}>
+                    <Form className="workshop-from-modal" onSubmit={handleSubmit(submitResearch)}>
                         <FormGroup>
                             <Label>Topic :</Label>
-                            <Input type="text" name="topic" value={data.topic} onChange={handleData}  />
-                        </FormGroup>
-                        <FormGroup>
-                            <Label>Description :</Label>
-                            <Input type="textarea" name="description" onChange={handleData} value={data.description}  />
+                            <Input type="text" name="title" value={title} onChange={handleData}  required/>
                         </FormGroup>
                         <FormGroup>
                             <Label>Proposal :</Label>
-                            <Input type="file" name="proposal" onChange={handleFile} encType="multipart/form-data"/>
+                            <Input type="file" name="proposal" onChange={handleFile} encType="multipart/form-data" required/>
                             <FormText color="muted">
                                 This is some placeholder block-level help text for the above input.
                                 It's a bit lighter and easily wraps to a new line.
@@ -120,4 +94,4 @@ const EditModal = (props) => {
     );
 };
 
-export default EditModal;
+export default EditResearchModal;

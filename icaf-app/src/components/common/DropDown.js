@@ -26,13 +26,27 @@ const DropDown = ()=>{
     const goToConferences = ()=>{
         history.push(`/profile/conference/${token.id}`);
     }
+    const goToManageResearches = () =>{
+
+    }
+    const goToManageWorkshops =()=>{
+
+    }
 
     if(userType==="user"){
         return(
             <div>
                 <DropdownItem onClick={goToWorkshops}>Workshops</DropdownItem>
-                <DropdownItem>Researches</DropdownItem>
-                <DropdownItem>Conferences</DropdownItem>
+                <DropdownItem onClick={goToResearches}>Researches</DropdownItem>
+                <DropdownItem divider/>
+                <DropdownItem onClick={logOut}>LogOut</DropdownItem>
+            </div>
+        );
+    }else if(userType==="reviewer"){
+        return(
+            <div>
+                <DropdownItem onClick={goToManageWorkshops}>Manage Workshops</DropdownItem>
+                <DropdownItem onClick={goToManageResearches}>Manage Researches</DropdownItem>
                 <DropdownItem divider/>
                 <DropdownItem onClick={logOut}>LogOut</DropdownItem>
             </div>
