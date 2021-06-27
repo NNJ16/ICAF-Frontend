@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useHistory} from "react-router-dom";
-
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import {
     Collapse,
     Navbar,
@@ -25,7 +25,6 @@ const Header = (props) => {
     const callForWorkshop = () => {
         history.push("/workshop/submit");
     }
-
     const goToWorkshop = () => {
         history.push("/workshops");
     }
@@ -74,7 +73,7 @@ const Header = (props) => {
                 </Nav>
                 <UncontrolledButtonDropdown>
                     <DropdownToggle caret>
-                       MY ICAF
+                       <AccountBoxIcon/> MY ICAF
                     </DropdownToggle>
                     <DropdownMenu>
                        <DropDown/>

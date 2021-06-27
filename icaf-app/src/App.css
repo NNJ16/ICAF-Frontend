@@ -6,6 +6,15 @@
     padding: 20px;
     border-radius: 7px;
 }
+
+.conference-from {
+    position: relative;
+    width: 50%;
+    margin: 40px auto 100px auto;
+    background: #fff;
+    padding: 2rem 5rem;
+    border-radius: 7px;
+}
 .workshop-from {
     position: relative;
     width: 45%;
@@ -13,12 +22,6 @@
     padding: 20px;
 }
 
-.workshop-from {
-    position: relative;
-    width: 45%;
-    background: #fff;
-    padding: 20px;
-}
 .title{
     margin-top: auto;
     text-align: center;
@@ -39,6 +42,13 @@
 
 .workshop-proposal{
     margin: 4rem;
+}
+.workshop-not-available{
+    margin: 6rem;
+    background-color: white;
+    padding: 2rem;
+    color: gray;
+    border-radius: 7px;
 }
 .conference-card{
     margin: 4rem;
@@ -78,6 +88,15 @@
     border-radius: 5px;
     text-align: center;
     color: gray;
+    margin-top: 1rem;
+}
+.wr-table-footer{
+    margin-top: 1rem;
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+    color: gray;
+    margin-bottom: 1rem;
 }
 .wr-dashboard-header{
     text-align: left;
@@ -92,4 +111,19 @@
     position: relative;
     background: #fff;
     padding: 20px;
+}
+
+.payment-form{
+    width: 350px;
+    background: #fff;
+    padding: 0.5rem;
+}
+
+.header{
+    text-align: center;
+}
+
+.btn-pay{
+    margin-top: 1rem;
+    width: 100%;
 }

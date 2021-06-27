@@ -1,7 +1,12 @@
 import React from "react";
 import {Button, Col, Row} from "reactstrap";
+import {useHistory} from "react-router-dom";
 
 const ConferenceCard =(props)=>{
+    const history = useHistory();
+    const GoToRegistration =()=>{
+        history.push("/conference/register");
+    }
     return(
         <div className="conference-card">
             <h2>Conference Topic</h2>
@@ -28,7 +33,7 @@ const ConferenceCard =(props)=>{
             </Row>
             <hr/>
             <div className="btn-reg-conference">
-                <Button size="lg" color="link">Attendee Registration Form</Button>
+                <Button onClick={GoToRegistration} size="lg" color="link">Attendee Registration Form</Button>
             </div>
         </div>
     );
