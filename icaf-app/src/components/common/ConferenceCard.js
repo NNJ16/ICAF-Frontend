@@ -4,8 +4,12 @@ import {useHistory} from "react-router-dom";
 
 const ConferenceCard =(props)=>{
     const history = useHistory();
+    let id = "60b3ae6a246ee4438da7764c";
     const GoToRegistration =()=>{
-        history.push("/conference/register");
+        history.push({
+            pathname: '/conference/registration/details',
+            state:{conference_id:id}
+        });
     }
     return(
         <div className="conference-card">

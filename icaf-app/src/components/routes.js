@@ -10,7 +10,9 @@ import MyResearches from "../views/researches/MyResearches";
 import MyWorkshops from "../views/workshop/MyWorkshops";
 import Workshops from "../views/workshop/Workshops";
 import SubmitRegistration from "../views/registration/SubmitRegistration";
-
+import ManageWorkshops from "../views/workshop/ManageWorkshops";
+import ManageResearches from "../views/researches/ManageResearches";
+import PaymentForm from "../views/registration/Payment";
 const hist = createBrowserHistory();
 
 const Routes = () => (
@@ -22,9 +24,12 @@ const Routes = () => (
         <Route exact path="/profile/research/:id" component={MyResearches}/>
         <Route exact path="/workshop/submit" component={SubmitWorkshop}/>
         <Route exact path="/workshops" component={Workshops}/>
+        <Route exact path="/workshops/manage/:id" component={ManageWorkshops}/>
         <Route exact path="/research/submit" component={SubmitResearch}/>
+        <Route exact path="/researches/manage/:id" component={ManageResearches}/>
         <Route exact path="/conference/registration" component={Registration}/>
-        <Route exact path="/conference/register" component={SubmitRegistration}/>
+        <Route exact path="/conference/registration/payments" component={PaymentForm}/>
+        <Route exact path="/conference/registration/details" component={SubmitRegistration}/>
     </Router>
 );
 

@@ -22,15 +22,17 @@ const DropDown = ()=>{
     const goToResearches = ()=>{
         history.push(`/profile/research/${token.id}`);
     }
-
-    const goToConferences = ()=>{
-        history.push(`/profile/conference/${token.id}`);
+    const logIn = () =>{
+        history.push("/login")
+    }
+    const register = () =>{
+        history.push("/register")
     }
     const goToManageResearches = () =>{
-
+        history.push(`/researches/manage/${token.id}`)
     }
     const goToManageWorkshops =()=>{
-
+        history.push(`/workshops/manage/${token.id}`);
     }
 
     if(userType==="user"){
@@ -56,7 +58,8 @@ const DropDown = ()=>{
     return (
         <div>
             <DropdownItem>Downloads</DropdownItem>
-            <DropdownItem>Register</DropdownItem>
+            <DropdownItem onClick={register}>Register</DropdownItem>
+            <DropdownItem onClick={logIn}>LogIn</DropdownItem>
         </div>
     );
 }

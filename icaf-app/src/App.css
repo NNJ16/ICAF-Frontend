@@ -1,9 +1,9 @@
 .reg-log-from {
     position: relative;
-    width: 25%;
+    width: 30%;
     margin: 40px auto 100px auto;
     background: #fff;
-    padding: 20px;
+    padding: 3rem;
     border-radius: 7px;
 }
 
