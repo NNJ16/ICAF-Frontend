@@ -5,17 +5,30 @@ import {Button, Col, Form, FormGroup, Input, Label, Row} from "reactstrap";
 import Footer from "../../components/footer/Footer";
 import {useHistory} from "react-router-dom";
 import {useForm} from "react-hook-form";
-import {useAlert} from "react-alert";
-import API from "../../components/api";
+import {useLocation} from "react-router-dom";
 
 const SubmitForm =() =>{
     const history = useHistory();
+    const location = useLocation();
     const {register, handleSubmit} = useForm();
-    const alert = useAlert();
     const handleRegistration = (data) => {
-
+        const attendee = {
+            name: data.name,
+            email: data.email,
+            phone: data.phone,
+            address: data.address,
+            paymentStatus: "pending",
+            conference: location.state.conference_id
+        }
+        history.push({
+            pathname: '/conference/registration/payments',
+            state:attendee
+        });
     };
 
+    const goBack=()=>{
+        history.push("/conference/registration")
+    }
     return(
         <div>
             <Header/>
@@ -26,7 +39,7 @@ const SubmitForm =() =>{
                     <hr/>
                     <FormGroup className="input">
                         <Label>Name :</Label>
-                        <Input name="name" {...register("lname")} required/>
+                        <Input name="name" {...register("name")} required/>
                     </FormGroup>
                     <FormGroup className="input">
                         <Label>Email :</Label>
@@ -40,8 +53,8 @@ const SubmitForm =() =>{
                         <Label>Address :</Label>
                         <Input type="textarea" rows="4" name="address" {...register("address")} required/>
                     </FormGroup>
-                    <Button className="btnLog" color="primary">Submit</Button>
-                    <Button className="btnReg" color="secondary">Cancel</Button>
+                    <Button className="btnLog" color="primary">Next</Button>
+                    <Button className="btnReg" onClick={goBack} color="secondary">Back</Button>
                 </Form>
             </div>
             <Footer/>

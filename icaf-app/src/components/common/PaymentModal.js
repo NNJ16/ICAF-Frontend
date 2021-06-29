@@ -10,6 +10,7 @@ const PaymentModal = (props) => {
     const onCloseModal = () => setOpen(false);
 
     const handleData = (event)=>{
+        event.preventDefault();
         API.patch("/research/update/payment/"+props.row._id)
             .then();
     }

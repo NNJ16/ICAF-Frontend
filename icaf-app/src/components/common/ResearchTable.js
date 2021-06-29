@@ -15,6 +15,9 @@ import {confirmAlert} from "react-confirm-alert";
 import {makeStyles, withStyles} from "@material-ui/core/styles";
 import TableCell from "@material-ui/core/TableCell";
 import PaymentModal from "./PaymentModal";
+import EditWorkshop from "./WorkshopModal";
+
+const token =JSON.parse(sessionStorage.getItem("token"));
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -61,7 +64,51 @@ const deleteResearch = (id) => {
                         }).catch((err) => {
                         console.log(err);
                     })
-                    window.location.reload();
+                }
+            },
+            {
+                label: 'No'
+            }
+        ]
+    });
+}
+const ApproveResearch = (id) =>{
+    confirmAlert({
+        title: 'Confirm Approval',
+        message: 'Are you sure to approve this research.',
+        buttons: [
+            {
+                label: 'Yes',
+                onClick: () => {
+                    API.patch("research/update/status",{id:id,status:"approved"})
+                        .then((res) => {
+
+                        }).catch((err) => {
+                        console.log(err);
+                    })
+                }
+            },
+            {
+                label: 'No'
+            }
+        ]
+    });
+}
+
+const RejectResearch = (id) =>{
+    confirmAlert({
+        title: 'Confirm to Reject',
+        message: 'Are you sure to reject this research.',
+        buttons: [
+            {
+                label: 'Yes',
+                onClick: () => {
+                    API.patch("research/update/status",{id:id,status:"rejected"})
+                        .then((res) => {
+
+                        }).catch((err) => {
+                        console.log(err);
+                    })
                 }
             },
             {
@@ -102,13 +149,23 @@ const ResearchTable = (props) => {
                                     <StyledTableCell style={{width: "10%"}} align="left">{row.approvalStatus}</StyledTableCell>
                                     <StyledTableCell style={{width: "20%"}} align="left">{new Date(row.submitDate).toUTCString()}</StyledTableCell>
                                     <StyledTableCell style={{width: "10%"}} align="left">{row.paymentStatus}</StyledTableCell>
+                                    <StyledTableCell style={{width: "5%"}} align="left">
                                     {
-                                        ((row.approvalStatus === "approved" && row.paymentStatus === "pending") ?
-                                            <StyledTableCell style={{width: "5%"}} align="left"><PaymentModal row={row}/></StyledTableCell>
-                                            :<StyledTableCell style={{width: "5%"}} align="left"><EditResearchModal row={row}/></StyledTableCell>
-                                        )
+                                        token.type === "reviewer" ?
+                                            (row.approvalStatus!=="approved" ? (<Button color="primary" onClick={()=>{ApproveResearch(row._id)}}>Approve</Button>):(<Button color="primary" disabled>Approve</Button>))
+                                            :((row.approvalStatus === "approved" && row.paymentStatus === "pending") ?
+                                                <PaymentModal row={row}/>
+                                                :<EditResearchModal row={row}/>
+                                            )
                                     }
-                                    <StyledTableCell style={{width: "5%"}} align="left"><Button onClick={() => {deleteResearch(row._id)}} color="warning">Delete</Button></StyledTableCell>
+                                    </StyledTableCell>
+                                    <StyledTableCell style={{width: "5%"}} align="left">
+                                        {
+                                            token.type === "reviewer" ? (row.approvalStatus!=="rejected" ?(<Button color="warning" onClick={()=>{RejectResearch(row._id)}}>Reject</Button>)
+                                                :(<Button color="warning" disabled>Reject</Button>))
+                                                :(<Button onClick={() => {deleteResearch(row._id)}} color="warning">Delete</Button>)
+                                        }
+                                    </StyledTableCell>
                                 </StyledTableRow>
                             )
                         }

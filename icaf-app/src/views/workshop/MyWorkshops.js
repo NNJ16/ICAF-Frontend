@@ -23,7 +23,7 @@ const MyWorkshops = () => {
             .catch(err => {
                 console.log(err)
             });
-    }, []);
+    }, [rows]);
 
     const AllWorkshops =()=>{
         setStatus("all");
