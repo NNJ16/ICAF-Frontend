@@ -58,7 +58,7 @@ const deleteWorkshop = (id) => {
                 onClick: () => {
                     API.delete(`workshop/delete/${id}`)
                         .then((res) => {
-
+                            window.location.reload();
                         }).catch((err) => {
                         console.log(err);
                     })
@@ -81,7 +81,7 @@ const ApproveWorkshop = (id) =>{
                 onClick: () => {
                     API.patch("workshop/update/status",{id:id,status:"approved"})
                         .then((res) => {
-
+                            window.location.reload();
                         }).catch((err) => {
                         console.log(err);
                     })
@@ -104,7 +104,7 @@ const RejectWorkshop = (id) =>{
                 onClick: () => {
                     API.patch("workshop/update/status",{id:id,status:"rejected"})
                         .then((res) => {
-
+                            window.location.reload();
                         }).catch((err) => {
                         console.log(err);
                     })

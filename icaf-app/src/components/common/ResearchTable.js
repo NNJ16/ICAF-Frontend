@@ -60,7 +60,7 @@ const deleteResearch = (id) => {
                 onClick: () => {
                     API.delete(`research/delete/${id}`)
                         .then((res) => {
-
+                            window.location.reload();
                         }).catch((err) => {
                         console.log(err);
                     })
@@ -82,7 +82,7 @@ const ApproveResearch = (id) =>{
                 onClick: () => {
                     API.patch("research/update/status",{id:id,status:"approved"})
                         .then((res) => {
-
+                            window.location.reload();
                         }).catch((err) => {
                         console.log(err);
                     })
@@ -105,7 +105,7 @@ const RejectResearch = (id) =>{
                 onClick: () => {
                     API.patch("research/update/status",{id:id,status:"rejected"})
                         .then((res) => {
-
+                            window.location.reload();
                         }).catch((err) => {
                         console.log(err);
                     })
