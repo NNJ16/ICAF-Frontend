@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useHistory} from "react-router-dom";
-
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import {
     Collapse,
     Navbar,
@@ -22,10 +22,12 @@ const Header = (props) => {
     const history = useHistory();
     const toggle = () => setIsOpen(!isOpen);
 
+
+    const [navbar, setNavbar] = useState(false);
+
     const callForWorkshop = () => {
         history.push("/workshop/submit");
     }
-
     const goToWorkshop = () => {
         history.push("/workshops");
     }
@@ -36,27 +38,39 @@ const Header = (props) => {
     const registration = () => {
         history.push("/conference/registration")
     }
+
+    const changeNavbar = () => {
+        if(window.scrollY>=80){
+            setNavbar(true)
+        }else{
+            setNavbar(false)
+        }
+      
+        console.log(window.scrollY)
+    }
+    window.addEventListener('scroll',changeNavbar);
+
     return <div>
-        <Navbar dark={true} color="dark" fixed="top" light expand="md">
-            <NavbarBrand href="/">ICAF</NavbarBrand>
+        <Navbar className={navbar ? "navBarr1" : "navBarr"} fixed="top" light expand="md">
+            <NavbarBrand className="icafLogo" href="/home">ICAF</NavbarBrand>
             <NavbarToggler onClick={toggle}/>
             <Collapse isOpen={isOpen} navbar>
                 <Nav className="mr-auto" navbar>
                     <NavItem>
-                        <NavLink>KEYNOTES</NavLink>
+                        <NavLink className="navItem" >KEYNOTES</NavLink>
                     </NavItem>
                     <UncontrolledDropdown nav inNavbar>
-                        <DropdownToggle nav caret>
+                        <DropdownToggle nav caret className="navItem">
                             RESEARCHES
                         </DropdownToggle>
-                        <DropdownMenu right>
+                        <DropdownMenu right className="dropMenu">
                             <DropdownItem onClick={callForPaper}>
                                 Call for paper
                             </DropdownItem>
                         </DropdownMenu>
                     </UncontrolledDropdown>
                     <UncontrolledDropdown nav inNavbar>
-                        <DropdownToggle nav caret>
+                        <DropdownToggle nav caret className="navItem">
                             WORKSHOPS
                         </DropdownToggle>
                         <DropdownMenu right>
@@ -69,12 +83,15 @@ const Header = (props) => {
                         </DropdownMenu>
                     </UncontrolledDropdown>
                     <NavItem>
-                        <NavLink href="/conference/registration">REGISTRATIONS</NavLink>
+                        <NavLink  className="navItem" href="/conference/registration">REGISTRATIONS</NavLink>
+                    </NavItem>
+                    <NavItem>
+                        <NavLink  className="navItem" href="/conference/registration">DOWNLOADS</NavLink>
                     </NavItem>
                 </Nav>
-                <UncontrolledButtonDropdown>
-                    <DropdownToggle caret>
-                       MY ICAF
+                <UncontrolledButtonDropdown >
+                    <DropdownToggle caret className="userOption" >
+                       <AccountBoxIcon  /> MY ICAF
                     </DropdownToggle>
                     <DropdownMenu>
                        <DropDown/>

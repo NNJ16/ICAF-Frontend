@@ -7,13 +7,15 @@ import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
 import {IconButton} from "@material-ui/core";
 import InsertDriveFileIcon from "@material-ui/icons/InsertDriveFile";
-import EditWorkshop from "../../views/workshop/EditWorkshop";
+import EditWorkshop from "./WorkshopModal";
 import {Button} from "reactstrap";
 import API from "../api";
 import download from "js-file-download";
 import {confirmAlert} from "react-confirm-alert";
 import {makeStyles, withStyles} from "@material-ui/core/styles";
 import TableCell from "@material-ui/core/TableCell";
+
+const token =JSON.parse(sessionStorage.getItem("token"));
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -60,7 +62,6 @@ const deleteWorkshop = (id) => {
                         }).catch((err) => {
                         console.log(err);
                     })
-                    window.location.reload();
                 }
             },
             {
@@ -69,6 +70,53 @@ const deleteWorkshop = (id) => {
         ]
     });
 }
+
+const ApproveWorkshop = (id) =>{
+    confirmAlert({
+        title: 'Confirm Approval',
+        message: 'Are you sure to approve this Workshop.',
+        buttons: [
+            {
+                label: 'Yes',
+                onClick: () => {
+                    API.patch("workshop/update/status",{id:id,status:"approved"})
+                        .then((res) => {
+
+                        }).catch((err) => {
+                        console.log(err);
+                    })
+                }
+            },
+            {
+                label: 'No'
+            }
+        ]
+    });
+}
+
+const RejectWorkshop = (id) =>{
+    confirmAlert({
+        title: 'Confirm to Reject',
+        message: 'Are you sure to reject this Workshop.',
+        buttons: [
+            {
+                label: 'Yes',
+                onClick: () => {
+                    API.patch("workshop/update/status",{id:id,status:"rejected"})
+                        .then((res) => {
+
+                        }).catch((err) => {
+                        console.log(err);
+                    })
+                }
+            },
+            {
+                label: 'No'
+            }
+        ]
+    });
+}
+
 const WorkshopTable = (props) => {
     let count = 0;
     const classes = useStyles();
@@ -93,22 +141,26 @@ const WorkshopTable = (props) => {
                             return (
                                 <StyledTableRow key={row._id}>
                                     <StyledTableCell style={{width: "12.5%"}} align="left">{row.topic}</StyledTableCell>
-                                    <StyledTableCell style={{width: "30%"}}
-                                                     align="left">{row.description}</StyledTableCell>
+                                    <StyledTableCell style={{width: "30%"}} align="left">{row.description}</StyledTableCell>
                                     <StyledTableCell style={{width: "20%"}} align="left">
                                         <IconButton edge="start" onClick={() => downloadProposal(row.filename)}>
                                             <InsertDriveFileIcon/>
                                         </IconButton>{row.filename.substr(14, row.filename.length - 1)}
                                     </StyledTableCell>
-                                    <StyledTableCell style={{width: "2.5%"}}
-                                                     align="left">{row.approvalStatus}</StyledTableCell>
-                                    <StyledTableCell style={{width: "11%"}}
-                                                     align="left">{new Date(row.submitDate).toUTCString()}</StyledTableCell>
-                                    <StyledTableCell style={{width: "2%"}} align="left"><EditWorkshop
-                                        row={row}/></StyledTableCell>
-                                    <StyledTableCell style={{width: "2%"}} align="left"><Button onClick={() => {
-                                        deleteWorkshop(row._id)
-                                    }} color="warning">Remove</Button></StyledTableCell>
+                                    <StyledTableCell style={{width: "2.5%"}} align="left">{row.approvalStatus}</StyledTableCell>
+                                    <StyledTableCell style={{width: "11%"}} align="left">{new Date(row.submitDate).toUTCString()}</StyledTableCell>
+                                    <StyledTableCell style={{width: "2%"}} align="left">
+                                        {
+                                            token.type === "reviewer" ?
+                                                (row.approvalStatus!=="approved" ? (<Button color="primary" onClick={()=>{ApproveWorkshop(row._id)}}>Approve</Button>):(<Button color="primary" disabled>Approve</Button>))
+                                                :(<EditWorkshop row={row}/>)
+                                        }
+                                    </StyledTableCell>
+                                    <StyledTableCell style={{width: "2%"}} align="left">
+                                        {
+                                            token.type === "reviewer" ? (row.approvalStatus!=="rejected" ?(<Button color="warning" onClick={()=>{RejectWorkshop(row._id)}}>Reject</Button>):(<Button color="warning" disabled>Reject</Button>)):(<Button onClick={() => {deleteWorkshop(row._id)}} color="warning">Delete</Button>)
+                                        }
+                                    </StyledTableCell>
                                 </StyledTableRow>
                             )
                         }

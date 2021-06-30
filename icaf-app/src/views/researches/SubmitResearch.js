@@ -4,21 +4,52 @@ import {Button, Form, FormGroup, FormText, Input, Label} from "reactstrap";
 import {useForm} from "react-hook-form";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
+import API from "../../components/api";
+import axios from "axios";
 
 const SubmitResearch =()=>{
     const {register, handleSubmit} = useForm();
+    const token = JSON.parse(sessionStorage.getItem("token"));
     let fileData = null;
-
-    const handleData= (event)=>{
+    const handleData = (event) => {
         const {name, value} = event.target;
-        if(name == "proposal"){
-            fileData = event.target.files;
-            console.log(fileData);
+        if (name === "proposal") {
+            fileData = event.target.files[0];
         }
     }
+    const updateFile = (formData) =>{
+        API.post("/research/upload", formData)
+            .then();
+    }
+    const createData = (research) =>{
+        API.post("/research/create", research)
+            .then();
+    }
+    const handleResearchData = (data) => {
+        const research = {
+            title: data.title,
+            paymentStatus: "pending",
+            approvalStatus: "pending",
+            researcher: {
+                userId: token.id,
+                name: token.name,
+                email: token.email
+            }
+        }
+        if(fileData){
+            const formData = new FormData();
+            formData.append(
+                "file",
+                fileData,
+                fileData.name
+            )
+            axios.all([updateFile(formData),setTimeout(()=>{createData(research)},2000)])
+                .then(axios.spread((data1, data2) => {
 
-    const handleRegistration = (data) => {
+                }));
+        }else{
 
+        }
     };
 
     return(
@@ -37,9 +68,17 @@ const SubmitResearch =()=>{
             <div className="workshop-submit">
                 <h2>RESEARCH PAPER SUBMISSION</h2>
                 <p>Paper submissions should be submitted as a single PDF file online at the following link:</p>
-                <Form className="workshop-from" onSubmit={handleSubmit(handleRegistration)}>
+                <Form className="workshop-from" onSubmit={handleSubmit(handleResearchData)}>
                     <FormGroup>
-                        <Input type="file" name="proposal" enctype="multipart/form-data"  onChange={handleData}/>
+                        <Label>Title :</Label>
+                        <Input type="text" name="title" {...register("title")} required/>
+                    </FormGroup>
+                    <FormGroup>
+                        <Input type="file" name="proposal" enctype="multipart/form-data"  onChange={handleData} required/>
+                        <FormText color="muted">
+                            This is some placeholder block-level help text for the above input.
+                            It's a bit lighter and easily wraps to a new line.
+                        </FormText>
                     </FormGroup>
                     <Button color="secondary" size="lg">Submit</Button>
                 </Form>

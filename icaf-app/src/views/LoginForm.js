@@ -27,7 +27,6 @@ const LoginForm = () => {
                             email:res.data.email,
                             type:res.data.type
                         }
-                        console.log(token)
                         sessionStorage.setItem("token",JSON.stringify(token));
                     }else {
                         alert.error("Invalid Password");

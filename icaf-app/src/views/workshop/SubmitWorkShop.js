@@ -72,15 +72,15 @@ const SubmitWorkshop = () => {
                 <Form className="workshop-from" onSubmit={handleSubmit(handleWorkshopData)}>
                     <FormGroup>
                         <Label>Topic :</Label>
-                        <Input type="text" name="topic" {...register("topic")} />
+                        <Input type="text" name="topic" {...register("topic")} required/>
                     </FormGroup>
                     <FormGroup>
                         <Label>Description :</Label>
-                        <Input type="textarea" name="description" {...register("description")} />
+                        <Input type="textarea" name="description" {...register("description")} required/>
                     </FormGroup>
                     <FormGroup>
                         <Label>Proposal :</Label>
-                        <Input type="file" name="proposal" enctype="multipart/form-data" onChange={handleData}/>
+                        <Input type="file" name="proposal" encType="multipart/form-data" onChange={handleData} required/>
                         <FormText color="muted">
                             This is some placeholder block-level help text for the above input.
                             It's a bit lighter and easily wraps to a new line.
