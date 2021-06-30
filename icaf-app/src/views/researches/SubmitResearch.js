@@ -6,6 +6,7 @@ import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
 import API from "../../components/api";
 import axios from "axios";
+import {confirmAlert} from "react-confirm-alert";
 
 const SubmitResearch =()=>{
     const {register, handleSubmit} = useForm();
@@ -45,7 +46,15 @@ const SubmitResearch =()=>{
             )
             axios.all([updateFile(formData),setTimeout(()=>{createData(research)},2000)])
                 .then(axios.spread((data1, data2) => {
-
+                    confirmAlert({
+                        title: 'Research paper submitted',
+                        message: 'Thank you for your contribution.',
+                        buttons: [
+                            {
+                                label: 'Ok'
+                            }
+                        ]
+                    });
                 }));
         }else{
 

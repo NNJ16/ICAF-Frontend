@@ -27,7 +27,7 @@ const Workshops = () => {
                 if (row.approvalStatus === "approved") {
                     count++;
                     return (
-                        <WorkshopCard row={row}/>
+                        <WorkshopCard key={row._id} row={row}/>
                     );
                 }
             })

@@ -23,7 +23,7 @@ const MyResearches = () => {
             .catch(err => {
                 console.log(err)
             });
-    }, [rows]);
+    }, []);
 
     const AllResearches =()=>{
         setStatus("all");

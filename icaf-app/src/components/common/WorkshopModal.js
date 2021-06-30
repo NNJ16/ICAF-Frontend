@@ -14,13 +14,14 @@ const EditWorkshopModal = (props) => {
     });
     useEffect(() => {
         setData(props.row)
-    }, []);
+    }, [props.row]);
 
     const onOpenModal = () => setOpen(true);
     const onCloseModal = () => setOpen(false);
     const {register, handleSubmit} = useForm();
     const token =JSON.parse(sessionStorage.getItem("token"));
     let fileData = null;
+    console.log(fileData +"start")
     const handleData= (event)=>{
         const {name, value} = event.target;
         setData((preValue) => {
@@ -52,6 +53,7 @@ const EditWorkshopModal = (props) => {
             .then();
     }
     const updateData = (workshop) =>{
+        console.log("Updated")
         API.put("/workshop/update", workshop)
             .then();
     }
@@ -67,7 +69,10 @@ const EditWorkshopModal = (props) => {
                 email: token.email
             }
         }
+        console.log(workshop);
+        console.log(fileData+"FileDATA");
         if(fileData){
+            console.log(fileData);
             const formData = new FormData();
             formData.append(
                 "file",
